@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import './assets/App.css'
+import TablesList from './components/TablesList'
+import TableBuys from './components/TableBuys'
+import { TablesType } from './vite-env'
+import TopBar from './components/TopBar'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+const defaultTables: TablesType = {
+  "00001": {
+    _id: "00001",
+    number: 1,
+    reservation: false,
+    state: "active",
+    buys: [
+      {
+        _id: "p.00001",
+        amount: 2,
+        price: 1000,
+        name: "Example",
+        type: "food"
+      },
+      {
+        _id: "p.00002",
+        amount: 1,
+        price: 500,
+        name: "Example 2",
+        type: "drink"
+      },
+    ]
+  }
 }
 
-export default App
+export default function App() {
+  const [Tables, setTables] = React.useState(defaultTables)
+  const [selectedTable, setSelected] = React.useState()
+  
+  return <main>
+    <TopBar/>
+    <section className='content'>
+      <TableBuys Table={selectedTable}/>
+      <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} />
+    </section>
+  </main>
+}

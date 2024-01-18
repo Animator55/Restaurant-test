@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  --cblack: #262829;
+  --cdarkgray: #494c4e;
+  --cgray: #72767a;
+  --clightgray: #a4a9ad;
+  --cwhite: #ccd2d6;
+}
+
+ul{
+  padding: 0;
+  list-style-type: none;
+}
+p {margin: 0;}
+
+button {
+  border-radius: 3px;
+  background-color: var(--clightgray);
+  border: none;
+}
+
+nav {
+  display: flex;
+}
+
+
+/***/
+
+.content {
+  display: flex;
+}
+
+/* TABLE PRODUCTS BUY*/
+
+.table-display {
+  display: flex;
+  height: 100%;
+  max-width: 80%;
+  background-color: var(--clightgray);
+}
+
+/* TABLES LIST SIDEBAR */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--cgray);
+  padding: 1rem 0.7rem;
+  height: 100%;
+}
+
+
+.tables-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.table-button, .add-table-btn {
+  border-radius: 50%;
+  background-color: var(--cdarkgray);
+  color: var(--cwhite);
+  padding: 0.4rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-table-btn {
+  background-color: var(--cblack);
+  color: var(--clightgray);
+}
