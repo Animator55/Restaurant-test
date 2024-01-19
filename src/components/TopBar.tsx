@@ -1,6 +1,6 @@
 type Props = {}
 
 export default function TopBar({}: Props) {
-  return <nav>
+  return <nav className="topbar">
   </nav>
 }

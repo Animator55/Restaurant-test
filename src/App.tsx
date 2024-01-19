@@ -35,9 +35,11 @@ export default function App() {
   const [selectedTable, setSelected] = React.useState()
   
   return <main>
-    <TopBar/>
     <section className='content'>
-      <TableBuys Table={selectedTable}/>
+      <section className='sub-content'>
+        <TopBar/>
+        <TableBuys Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
+      </section>
       <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} />
     </section>
   </main>
