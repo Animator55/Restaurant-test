@@ -1,15 +1,18 @@
 import React from 'react'
 import { Table } from '../vite-env'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
     Table: Table | undefined
+    editTable: Function
 }
 
 type pagesType = {
     [key: string] : any
 }
 
-export default function TableBuys({Table}: Props) {
+export default function TableBuys({Table, editTable}: Props) {
     const [ProductPage, setProductPage] = React.useState("Entrada")
 
     const pages: pagesType = {
@@ -18,6 +21,16 @@ export default function TableBuys({Table}: Props) {
         "Postres": <div>3</div>,
         "Bebida": <div>4</div>,
         "Cocktail": <div>5</div>,
+    }
+
+    const calculateTotal = ()=>{
+        if(Table === undefined) return
+        let array = Table.buys
+        let total = 0
+        for(let i=0; i < array.length; i++) {
+            total += array[i].price
+        }
+        return total
     }
 
     const TableTopBar = ()=>{
@@ -42,8 +55,17 @@ export default function TableBuys({Table}: Props) {
                         <p>{item.name}</p>
                         <p>{item.amount}</p>
                         <p>{item.price}</p>
+                        <div className='item-options'>
+                            <button onClick={()=>{console.log("add")}}><FontAwesomeIcon icon={faPlus}/></button>
+                            <button onClick={()=>{console.log("sub")}}><FontAwesomeIcon icon={faMinus}/></button>
+                        </div>
                     </li>
                 })}
+                <li className='table-buys-total' key={Math.random()}>
+                    <p>Total</p>
+                    <p></p>
+                    <p>{calculateTotal()}</p>
+                </li>
             </ul>
         </div>
     }
@@ -69,8 +91,8 @@ export default function TableBuys({Table}: Props) {
     }
     return <section className='table-display'>
         <div>
-            <TableTopBar/>
             <ProductList/>
+            <TableTopBar/>
         </div>
         <ProductPicker/>
     </section>

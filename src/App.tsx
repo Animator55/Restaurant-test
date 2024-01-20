@@ -34,11 +34,17 @@ export default function App() {
   const [Tables, setTables] = React.useState(defaultTables)
   const [selectedTable, setSelected] = React.useState()
   
+  const editTable = (key: string, value: any)=>{
+    if(selectedTable === undefined) return
+
+    setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value}})
+  }
+
   return <main>
     <section className='content'>
       <section className='sub-content'>
         <TopBar/>
-        <TableBuys Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
+        <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
       <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} />
     </section>
