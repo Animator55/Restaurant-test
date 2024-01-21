@@ -26,18 +26,39 @@ const defaultTables: TablesType = {
         name: "Example 2",
         type: "drink"
       },
+      {
+        _id: "p.00003",
+        amount: 3,
+        price: 700,
+        name: "Example 3",
+        type: "drink"
+      },
     ]
   }
 }
 
 export default function App() {
   const [Tables, setTables] = React.useState(defaultTables)
-  const [selectedTable, setSelected] = React.useState()
+  const [selectedTable, setSelected] = React.useState<string | undefined>()
   
   const editTable = (key: string, value: any)=>{
     if(selectedTable === undefined) return
 
     setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value}})
+  }
+
+  const createTable = ()=>{
+    let id = `${Math.random()*Math.random()}`
+    let initial = {
+      _id: id,
+      number: Math.round(Math.random()*100),
+      reservation: false,
+      state: "active",
+      buys: []
+    }
+
+    setTables({...Tables, [id]: initial})
+    setSelected(id)
   }
 
   return <main>
@@ -46,7 +67,7 @@ export default function App() {
         <TopBar/>
         <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
-      <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} />
+      <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} createTable={createTable} />
     </section>
   </main>
 }

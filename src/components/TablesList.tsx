@@ -6,9 +6,10 @@ type Props = {
     Tables: TablesType
     setTables: Function
     setSelected: Function
+    createTable: Function
 }
 
-export default function TablesList({Tables, setTables, setSelected}: Props) {
+export default function TablesList({Tables, setTables, setSelected, createTable}: Props) {
     const selectTable = (tableId:string)=>{
         setSelected(tableId)
     }
@@ -26,7 +27,7 @@ export default function TablesList({Tables, setTables, setSelected}: Props) {
     }
   return <section className="sidebar">
     <button className="expand-sidebar" onClick={()=>{console.log("expand")}}><FontAwesomeIcon icon={faArrowLeft}/></button>
-    <button className="add-table-btn" onClick={()=>{console.log("create")}}><FontAwesomeIcon icon={faPlus}/></button>
+    <button className="add-table-btn" onClick={()=>{createTable()}}><FontAwesomeIcon icon={faPlus}/></button>
     <hr/>
     <ListRender/>
   </section>

@@ -236,6 +236,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .add-table-btn {
   background-color: var(--cblack);

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from '../vite-env'
+import { Item, Table } from '../vite-env'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -42,6 +42,20 @@ export default function TableBuys({Table, editTable}: Props) {
         </nav>
     }
 
+    const changeAmount = (item: Item, index: number, add: number)=>{
+        if(Table === undefined || Table.buys.length === 0) return
+        let newAmount = item.amount + add
+        
+        //delete if amount is 0
+        let newValue = newAmount !== 0 ?  
+        Object.values({...Table.buys, [index]: {...item, amount: newAmount}}) 
+        : Table.buys.filter((item, i)=>{
+            if(i !== index) return item
+        })
+        
+        editTable("buys", newValue)
+    }
+
     const ProductList = ()=>{
         return <div>
             <nav className='table-buys-top'>
@@ -50,14 +64,14 @@ export default function TableBuys({Table, editTable}: Props) {
                 <p>Precio</p>
             </nav>
             <ul className='table-buys'>
-                {Table !== undefined && Table.buys.map(item=>{
+                {Table !== undefined && Table.buys.map((item, i)=>{
                     return <li className='table-buys-item' key={Math.random()}>
                         <p>{item.name}</p>
                         <p>{item.amount}</p>
                         <p>{item.price}</p>
                         <div className='item-options'>
-                            <button onClick={()=>{console.log("add")}}><FontAwesomeIcon icon={faPlus}/></button>
-                            <button onClick={()=>{console.log("sub")}}><FontAwesomeIcon icon={faMinus}/></button>
+                            <button onClick={()=>{changeAmount(item, i, 1)}}><FontAwesomeIcon icon={faPlus}/></button>
+                            <button onClick={()=>{changeAmount(item, i, -1)}}><FontAwesomeIcon icon={faMinus}/></button>
                         </div>
                     </li>
                 })}
