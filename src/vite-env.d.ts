@@ -15,8 +15,9 @@ export type Table = {
 
 export type Item = {
     _id: string,
-    amount: number,
+    amount?: number,
     price: number,
     name: string,
-    type: string
+    type: string,
+    tags?: string[]
 }

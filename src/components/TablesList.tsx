@@ -6,17 +6,22 @@ type Props = {
     Tables: TablesType
     setTables: Function
     setSelected: Function
+    selectedTable: string | undefined
     createTable: Function
 }
 
-export default function TablesList({Tables, setTables, setSelected, createTable}: Props) {
+export default function TablesList({Tables, setTables, setSelected, selectedTable, createTable}: Props) {
     const selectTable = (tableId:string)=>{
         setSelected(tableId)
     }
     
     const ListRender = ()=>{
         let JSX = Object.values(Tables).map(tabl=>{
-            return <li className="table-button" key={Math.random()} onClick={()=>{selectTable(tabl._id)}}>
+            return <li 
+                className={selectedTable && tabl._id === selectedTable ? "table-button active" : "table-button"} 
+                key={Math.random()} 
+                onClick={()=>{selectTable(tabl._id)}}
+            >
                 <p>{tabl.number}</p>
             </li>
         })
