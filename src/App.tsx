@@ -49,11 +49,11 @@ export default function App() {
     setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value}})
   }
 
-  const createTable = ()=>{
+  const createTable = (val: string)=>{
     let id = `${Math.random()*Math.random()}`
     let initial = {
       _id: id,
-      number: Math.round(Math.random()*100),
+      number: Number(val),
       reservation: false,
       state: "active",
       buys: []

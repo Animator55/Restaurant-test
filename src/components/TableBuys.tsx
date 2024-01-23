@@ -1,7 +1,7 @@
 import React from 'react'
 import { Item, Table } from '../vite-env'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowCircleLeft, faMinus, faPlus, faSeedling, faWheatAlt } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleLeft, faBottleWater, faCookie, faDrumstickBite, faIceCream, faMartiniGlassCitrus, faMinus, faPlus, faSeedling, faWheatAlt } from '@fortawesome/free-solid-svg-icons'
 import { products } from '../assets/products'
 
 type Props = {
@@ -13,13 +13,13 @@ type Props = {
 export default function TableBuys({Table, editTable, changedAmountId}: Props) {
     const [ProductPage, setProductPage] = React.useState("Entrada")
 
-    const pages = [
-        "Entrada",
-        "Principal",
-        "Postres",
-        "Bebida",
-        "Cocktail",
-    ]
+    const pages = {
+        "Entrada": faCookie,
+        "Principal": faDrumstickBite,
+        "Postres": faIceCream,
+        "Bebida": faBottleWater,
+        "Cocktail": faMartiniGlassCitrus,
+    }
 
     const calculateTotal = ()=>{
         if(Table === undefined) return
@@ -129,12 +129,15 @@ export default function TableBuys({Table, editTable, changedAmountId}: Props) {
     const ProductPicker = ()=>{
         const Router = ()=>{
             return <nav className='picker-nav'>
-                {pages.map(page=>{
+                {Object.keys(pages).map(page=>{
                     return <button 
                         key={Math.random()}
                         className={ProductPage === page ? "active" : ""}
                         onClick={()=>{setProductPage(page)}}
-                    >{page}</button>
+                    >
+                        <FontAwesomeIcon icon={pages[page]}/>
+                        <p>{page}</p>
+                    </button>
                 })}
             </nav>
         }
