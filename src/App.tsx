@@ -11,29 +11,8 @@ const defaultTables: TablesType = {
     number: 1,
     reservation: false,
     state: "active",
-    buys: [
-      {
-        _id: "e.000",
-        name: "Tortilla de Papa",
-        price: 3900,
-        type: "Entrada",
-        amount: 1
-      },
-      {
-          _id: "e.001",
-          name: "Aranccini de hongos",
-          price: 4500,
-          amount: 2,
-          type: "Entrada"
-      },
-      {
-        _id: "b.001",
-        amount: 3,
-        price: 700,
-        name: "Agua s/g",
-        type: "Bebidas"
-      },
-    ]
+    historial: [],
+    buys: []
   }
 }
 
@@ -43,10 +22,21 @@ export default function App() {
   const [Tables, setTables] = React.useState(defaultTables)
   const [selectedTable, setSelected] = React.useState<string | undefined>()
   
-  const editTable = (key: string, value: any)=>{
+  const editTable = (key: string, value: any, id: string, change: boolean)=>{
     if(selectedTable === undefined) return
 
-    setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value}})
+    lastChange = id
+
+    let historial = Tables[selectedTable].historial 
+    if(key === "buys") {
+      const d = new Date()
+      let histBuy = {
+        _id: id, change: change ? "+1" : "-1", timestamp: d.getHours() +":"+d.getMinutes()
+      }
+      historial = historial.length === 0 ? [histBuy]:[...historial, histBuy]
+    }
+
+    setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value, historial: historial}})
   }
 
   const createTable = (val: string)=>{
@@ -56,15 +46,12 @@ export default function App() {
       number: Number(val),
       reservation: false,
       state: "active",
-      buys: []
+      buys: [],
+      historial: [],
     }
 
     setTables({...Tables, [id]: initial})
     setSelected(id)
-  }
-
-  const changedAmountId = (id:string)=>{
-    lastChange = id
   }
 
   React.useEffect(()=>{
@@ -87,7 +74,7 @@ export default function App() {
     <section className='content'>
       <section className='sub-content'>
         <TopBar/>
-        <TableBuys changedAmountId={changedAmountId} editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
+        <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
       <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
     </section>

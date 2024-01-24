@@ -15,16 +15,28 @@ export default function PopUp({close, confirm}: Props) {
     }, [])
 
     const submit = (e: React.KeyboardEvent<HTMLInputElement>)=>{
-        if(e.key === "Enter" && input.current) confirm(input.current.value)
+        if(!input.current || e.key === "+" || e.key === "-" ) return e.preventDefault()
+        if(!isNaN(Number(e.key))) {
+            let value = Number(input.current.value + e.key)
+            if(value > 100 
+            || value < 1 
+            && input.current.value !== "") return e.preventDefault()
+        }
+        if(e.key === "Enter") confirm(input.current.value)
     }
     
-    return <div className='pop-background'>
+    return <div className='pop-background' onClick={(e)=>{
+            if(e.target && e.target.className === "pop-background") close()
+        }}>
         <div className='pop'>
             <h2>Añadir mesa</h2>
-            <input ref={input} type='number' onKeyDown={submit} placeholder='Número de mesa'/>
+            <hr/>
+            <input ref={input} type='number' onKeyDown={submit} placeholder='Número de mesa' min="1" max="50"/>
             <button onClick={()=>{
                 if(input.current) confirm(input.current.value)
-            }}></button>
+            }}>
+                Confirmar
+            </button>
         </div>
     </div>
     }

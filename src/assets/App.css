@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 body {
   margin: 0;
   --cblack: #262829;
@@ -10,6 +12,7 @@ body {
 
 * {
   user-select: none;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 main {
@@ -39,11 +42,30 @@ button > * {
 nav {
   display: flex;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  background-color: var(--cblack);
+  border-radius: 3px;
+  padding: 0.5rem;
+  color: var(--cwhite);
+  outline: none;
+  border: none;
+}
+
 *::-webkit-scrollbar-track {
   border-radius: 5px;
 }
 *::-webkit-scrollbar {    
-  background-color: var(--cdarkgray);
+  background-color: transparent;
   width: 0.3rem;
   border-radius: 5px;
 }
@@ -176,7 +198,7 @@ nav {
     scale: 1;
   }
   50% { 
-    background-color: var(--cdarkgray);
+    background-color: var(--cgreen);
     scale: 1.05 
   }
 }
@@ -343,10 +365,51 @@ nav {
   cursor: pointer;
 }
 .add-table-btn {
-  background-color: var(--cblack);
-  color: var(--clightgray);
+  background-color: var(--cwhite);
+  color: var(--cdarkgray);
 }
 .table-button.active {
   background-color: var(--cwhite);
   color: var(--cblack);
+}
+
+/* POP UP */
+
+.pop-background {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(1px);
+}
+
+.pop {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  background-color: var(--cwhite);
+  box-shadow: 0 0 10px var(--cblack);
+  gap: 0.5rem;
+  border-radius: 5px;
+}
+
+.pop > hr {
+  width: 100%;
+  border: 1px solid;
+  border-color: var(--cgray);
+  margin: 0.3rem 0px;
+}
+
+.pop > h2 {
+  margin: 0;
+  text-align: center;
+  color: var(--cblack);
+}
+
+.pop > button {
+  background-color: var(--cdarkgray);
+  color: var(--cwhite);
+  padding: 0.7rem;
+  border-radius: 3px;
 }

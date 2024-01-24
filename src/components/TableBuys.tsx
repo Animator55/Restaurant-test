@@ -7,10 +7,9 @@ import { products } from '../assets/products'
 type Props = {
     Table: Table | undefined
     editTable: Function
-    changedAmountId: Function
 }
 
-export default function TableBuys({Table, editTable, changedAmountId}: Props) {
+export default function TableBuys({Table, editTable}: Props) {
     const [ProductPage, setProductPage] = React.useState("Entrada")
 
     const pages = {
@@ -65,8 +64,7 @@ export default function TableBuys({Table, editTable, changedAmountId}: Props) {
             if(i !== index) return item
         })
         
-        changedAmountId(item._id)
-        editTable("buys", newValue)
+        editTable("buys", newValue, item._id, add > 0)
     }
 
     const addItem = (item: Item)=>{
@@ -75,8 +73,7 @@ export default function TableBuys({Table, editTable, changedAmountId}: Props) {
         let [results, index] = checkItemBuy(Table.buys, buyedItem._id)
         if(Table.buys.length !== 0 && results) changeAmount(Table.buys[index as number], index as number, 1)
         else {
-            changedAmountId(buyedItem._id)
-            editTable("buys", [...Table.buys, buyedItem])
+            editTable("buys", [...Table.buys, buyedItem], buyedItem._id, true)
         }
     }
 

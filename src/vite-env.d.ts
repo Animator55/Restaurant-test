@@ -10,6 +10,7 @@ export type Table = {
     reservation: boolean,
     state: string,
     buys: Item[]
+    historial: any[]
 }
 
 
