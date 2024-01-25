@@ -5,7 +5,7 @@ type Props = {
     confirm: Function
 }
 
-export default function PopUp({close, confirm}: Props) {
+export default function AddTable({close, confirm}: Props) {
     const input = React.useRef<null | HTMLInputElement>(null)
     React.useEffect(()=>{
         if(input !== null && input.current !== null) input.current.focus()

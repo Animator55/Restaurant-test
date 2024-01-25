@@ -1,12 +1,11 @@
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { TablesType } from "../vite-env"
-import PopUp from "./PopUp"
+import AddTable from "./AddTable"
 import React from "react"
 
 type Props = {
     Tables: TablesType
-    setTables: Function
     setSelected: Function
     selectedTable: string | undefined
     createTable: Function
@@ -24,7 +23,7 @@ const checkTableExist = (Tables: TablesType, number: string)=>{
     return result
 }
 
-export default function TablesList({Tables, setTables, setSelected, selectedTable, createTable}: Props) {
+export default function TablesList({Tables, setSelected, selectedTable, createTable}: Props) {
     const [popUp, setPopUp] = React.useState<boolean>(false)
     
     const selectTable = (tableId:string)=>{
@@ -54,7 +53,7 @@ export default function TablesList({Tables, setTables, setSelected, selectedTabl
     }
     
   return <section className="sidebar">
-    {popUp && <PopUp close={()=>{setPopUp(false)}} confirm={handleCreateTable}/>}
+    {popUp && <AddTable close={()=>{setPopUp(false)}} confirm={handleCreateTable}/>}
     <button className="expand-sidebar" onClick={()=>{console.log("expand")}}><FontAwesomeIcon icon={faArrowLeft}/></button>
     <button className="add-table-btn" onClick={()=>{setPopUp(true)}}><FontAwesomeIcon icon={faPlus}/></button>
     <hr/>

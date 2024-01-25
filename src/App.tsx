@@ -49,9 +49,12 @@ export default function App() {
       buys: [],
       historial: [],
     }
-
     setTables({...Tables, [id]: initial})
     setSelected(id)
+  }
+
+  const closeAll = (save: boolean)=>{
+    console.log(save)
   }
 
   React.useEffect(()=>{
@@ -73,10 +76,10 @@ export default function App() {
   return <main>
     <section className='content'>
       <section className='sub-content'>
-        <TopBar/>
+        <TopBar closeAll={closeAll}/>
         <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
-      <TablesList Tables={Tables} setTables={setTables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
+      <TablesList Tables={Tables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
     </section>
   </main>
 }
