@@ -8,6 +8,7 @@ body {
   --clightgray: #a4a9ad;
   --cwhite: #ccd2d6;
   --cgreen: #6bd674;
+  --cred: #d66b6b;
 }
 
 * {
@@ -77,22 +78,147 @@ input {
   border-radius: 5px;
 }
 
+.d-flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.d-none {
+  display: none!important;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.copied {
+  background-color: var(--cgreen) !important;
+  color: var(--cblack) !important;
+}
+
+.copied::after {
+  content: "✔";
+  position: relative;
+  margin-left: 0.5rem;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
 /***/
 
 .topbar {
-   min-height: 3rem;
-   background-color: var(--cgray);
+  min-height: 3rem;
+  max-height: 3rem;
+  background-color: var(--cdarkgray);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.topbar>button {
+  background-color: transparent;
+  font-size: 1.2rem;
+  color: var(--cwhite);
+}
+
+.topbar>button:nth-child(1) {
+  margin-left: 0.75rem;
+}
+
+.topbar>button:nth-child(2) {
+  margin-right: auto;
+}
+
+/* .pay {
+  background-color: var(--cblack) !important;
+  color: var(--cwhite);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem !important;
+} */
+
+/* .add-table>p,
+.toggle-filter>p,
+.save>p {
+  font-size: 0.8rem;
+} */
+
+.topbar>h4 {
+  margin: 0 0.5rem 0 auto;
+  color: var(--cwhite);
+  font-weight: 500;
+}
+
+.span-wrap {
+  position: relative;
+}
+
+.span-wrap:nth-child(2) {
+  margin-left: auto;
+}
+
+.expander {
+  background-color: transparent;
+  color: var(--cwhite);
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+  margin-right: 0.75rem;
+}
+
+.top-span {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cdarkgray);
+  max-height: 0px;
+  overflow: hidden;
+}
+
+.top-span>button {
+  padding: 0.7rem 0.5rem;
+  background-color: var(--cblack);
+  color: var(--cwhite);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.top-span>button>p {
+  white-space: nowrap;
+}
+
+.top-span.expanded {
+  max-height: 60vh;
+  padding: 0.3rem;
+  gap: 0.2rem;
+  overflow: auto;
+}
+
+.icon-loading{
+  font-size: 3rem;
+  color: var(--cgreen);
 }
 
 .content {
   display: flex;
   width: 100%;
+  max-height: 100dvh;
 }
+
 .sub-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  max-height: 100dvh;
 }
 
 /* TABLE PRODUCTS BUY*/
@@ -162,9 +288,10 @@ input {
   position: relative;
 }
 
+
 .table-buys-top {
   display: grid;
-  grid-template-columns: 35% 25% 25% 7%;
+  grid-template-columns: 7% 35% 10% 25% 15%;
   gap: 2%;
   border-radius: 10px;
   margin: 0.3rem;
@@ -173,16 +300,27 @@ input {
   background-color: var(--cblack);
   color: var(--cwhite);
 }
-.table-buys-item, .table-buys-total {
+
+.table-buys-item,
+.table-buys-total {
   display: grid;
-  grid-template-columns: 35% 25% 25% 7%;
+  align-items: center;
+  grid-template-columns: 7% 35% 10% 25% 15%;
   gap: 2%;
   border-radius: 10px;
   padding: 0.4rem 0.6rem;
   background-color: var(--cblack);
 }
 
-.table-buys-item > p {
+.table-buys-item>button {
+  height: 100%;
+}
+
+.table-buys-item.edited>button {
+  background-color: var(--cgreen);
+}
+
+.table-buys-item>p {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -203,27 +341,27 @@ input {
   }
 }
 
+
 .item-options {
   display: flex;
-  justify-content: center;
   gap: 0.5rem;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.item-options > button {
+.item-options>button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
-  color: var(--cwhite);
-  border-radius: 50%;
-  padding: 0 0.25rem;
+  background-color: var(--cgreen);
+  color: var(--cblack);
+  border-radius: 5px;
+  padding: 0.4rem;
   transition: background-color 200ms, scale 300ms;
 }
-.item-options > button:hover {
-  background-color: var(--cdarkgray);
-  border-radius: 50%;
-  scale: 1.2;
-  transition: background-color 200ms, scale 300ms;
+
+.item-options>button:first-of-type {
+  background-color: var(--cred);
 }
 
 .table-buys-total {
@@ -248,31 +386,64 @@ input {
   gap: 0.1rem;
 }
 
-.picker-nav > button {
+.picker-nav>button {
   background-color: var(--cdarkgray);
   border-radius: 3px 3px 0 0;
   color: var(--cwhite);
   padding: 0.3rem 0.5rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
+  font-size: 1.1rem;
 }
 
-.content:has(.sidebar.expanded) .picker-nav > button > :last-child {
+.picker-nav>button>p {
+  font-size: 0.6rem;
+}
+
+.picker-nav>button:not(.active)> :last-child {
   display: none;
 }
 
 @media (max-width: 900px) {
-  .picker-nav > button > :last-child {
+  .picker-nav>button> :last-child {
     display: none;
   }
 }
 
-.picker-nav > button.active {
+.picker-nav>button.active {
   background-color: var(--cblack);
 }
 
+/**/
+
+
+.product-paging {
+  background-color: var(--cblack);
+  display: flex;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  position: relative;
+  max-height: inherit;
+  min-height: calc(100% - 18%);
+  border: 0.7rem solid var(--cblack);
+}
+
 .product-picker {
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  gap: 0.3rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+/**/
+
+
+/* .product-picker {
   background-color: var(--cblack);
   padding: 0.7rem 0.5rem;
   border-radius: 0 0 10px 10px;
@@ -282,7 +453,7 @@ input {
   gap: 0.3rem;
   overflow-y: scroll;
   overflow-x: hidden;
-}
+} */
 
 .pickeable-item{
   padding: 0.5rem;
@@ -378,10 +549,23 @@ input {
 .pop-background {
   position: fixed;
   inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.pop-background.loading:has(.pop.d-none) {
+  pointer-events: none;
+}
+.icon-loading:has(+.pop:not(.d-none)) {
+  display: none;
+}
+
+.pop-background.loading > .pop {
+  max-width: 75%;
 }
 
 .pop {
@@ -394,22 +578,138 @@ input {
   border-radius: 5px;
 }
 
-.pop > hr {
+.pop:has(ul) {
+  width: calc(100% - 5rem);
+  min-height: 60%;
+}
+
+.pop hr {
   width: 100%;
   border: 1px solid;
-  border-color: var(--cgray);
+  border-color: var(--cdarkgray);
   margin: 0.3rem 0px;
 }
 
-.pop > h2 {
+.pop>h2,
+.pop h3,
+.pop h5 {
   margin: 0;
   text-align: center;
   color: var(--cblack);
 }
 
-.pop > button {
+.pop>.d-flex>h5 {
+  margin-left: auto;
+}
+
+.pop ul {
+  margin: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 85dvh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.pop ul>li {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.pop ul>li>p:last-child {
+  text-align: end;
+}
+
+.pop button {
   background-color: var(--cdarkgray);
   color: var(--cwhite);
   padding: 0.7rem;
   border-radius: 3px;
+}
+
+/***/
+
+div:has(> .historial-block) {
+  background-color: var(--cgray);
+  color: var(--cwhite);
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  gap: 0.3rem;
+  padding: 0.5rem;
+}
+
+
+.historial-block {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cblack);
+  border-radius: 3px;
+}
+
+.historial-block>p {
+  margin-bottom: 0.5rem;
+  margin-left: auto;
+}
+
+.historial-block>div {
+  justify-content: space-between;
+}
+
+/****/
+
+.results-list {
+  padding: 0.5rem;
+  background-color: var(--clightgray);
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap:0.5rem
+}
+
+.results-list > hr {
+  width: 100%;
+  border: 1px solid;
+  border-color: var(--cdarkgray);
+  margin: 0.3rem 0px;
+}
+.total-result {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  padding: 0.2rem;
+  padding-left: 2rem;
+  background-color: var(--cdarkgray);
+  color: var(--cwhite);
+  border-radius: 3px;
+}
+
+.active-table, .unactive-table {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0.2rem;
+  padding-left: 2rem;
+  cursor: default;
+  gap: 0;
+}
+.active-table::after, .unactive-table::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 100%;
+  background-color: var(--cgreen);
+}
+.unactive-table::after {
+  background-color: var(--cred);
 }

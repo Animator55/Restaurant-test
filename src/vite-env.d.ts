@@ -1,7 +1,11 @@
 /// <reference types="vite/client" />
-
 export type TablesType = {
     [key: string] : Table
+}
+
+
+export type pagesRouter = {
+    [key: string] : any
 }
 
 export type Table = {

@@ -4,6 +4,7 @@ import TablesList from './components/TablesList'
 import TableBuys from './components/TableBuys'
 import { TablesType } from './vite-env'
 import TopBar from './components/TopBar'
+import LoadingPop from './components/LoadingPop'
 
 const defaultTables: TablesType = {
   "00001": {
@@ -19,6 +20,8 @@ const defaultTables: TablesType = {
 let lastChange: string | undefined
 
 export default function App() {
+  const [popUp, setPopUp] = React.useState<boolean>(false)
+  const [loading, setloading] = React.useState<string>("")
   const [Tables, setTables] = React.useState(defaultTables)
   const [selectedTable, setSelected] = React.useState<string | undefined>()
   
@@ -39,24 +42,6 @@ export default function App() {
     setTables({...Tables, [selectedTable]: {...Tables[selectedTable], [key] : value, historial: historial}})
   }
 
-  const createTable = (val: string)=>{
-    let id = `${Math.random()*Math.random()}`
-    let initial = {
-      _id: id,
-      number: Number(val),
-      reservation: false,
-      state: "active",
-      buys: [],
-      historial: [],
-    }
-    setTables({...Tables, [id]: initial})
-    setSelected(id)
-  }
-
-  const closeAll = (save: boolean)=>{
-    console.log(save)
-  }
-
   React.useEffect(()=>{
     if(lastChange === undefined) return
 
@@ -73,10 +58,67 @@ export default function App() {
     },300)
   }, [Tables])
 
-  return <main>
+
+  const createTable = (val: string)=>{
+    let id = `${Math.random()*Math.random()}`
+    const d = new Date()
+    let initial = {
+      _id: id,
+      number: Number(val),
+      reservation: false,
+      state: "active",
+      buys: [],
+      historial: [
+        {change: [["Creada la mesa", val]], timestamp: d.getHours() +":"+(d.getMinutes() > 10 ? "" : "0") +d.getMinutes()}
+      ],
+    }
+    setTables({...Tables, [id]: initial})
+    setSelected(id)
+  }
+
+  const save = ()=>{
+    let storage = window.localStorage
+    for(const id in Tables) {
+      let value = JSON.stringify(Tables[id])
+      storage.setItem(id, value);
+    }
+    setloading("guardar")
+  }
+  const archivate = (id: string, boolean: boolean)=>{
+    setTables({...Tables, [id]: {...Tables[id], state: boolean ? "active":"deleted"}})
+  }
+  
+  const pay = ()=>{
+    if(!selectedTable || Tables[selectedTable].buys.length === 0) return
+
+    let result = {}
+    let total = 0
+    let table = Tables[selectedTable].buys
+    for(let i=0; i<table.length; i++) {
+      total += table[i].price * table[i].amount!
+      let amount = table[i].amount === 1 ? "" : "(" +table[i].amount + " X "
+      let subtotal = table[i].amount === 1 ? "" : ") $"+ table[i].amount! * table[i].price 
+      result = {...result, [table[i].name] : amount +"$" + table[i].price + subtotal}
+    }
+
+    result = {...result, Total: `$${total}`, "Mesa": Tables[selectedTable].number}
+
+    setDisplay(result)
+  }
+
+
+  return <main id='main'>
     <section className='content'>
       <section className='sub-content'>
-        <TopBar closeAll={closeAll}/>
+        {loading !== "" && <LoadingPop objetive={loading} close={()=>{setloading("")}}/>}
+        <TopBar 
+          save={save} 
+          clear={()=>{
+            window.localStorage.clear()
+            setloading("borrar")
+          }}
+          results={()=>{}}
+        />
         <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
       <TablesList Tables={Tables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
