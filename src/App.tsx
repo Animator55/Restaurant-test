@@ -5,6 +5,7 @@ import TableBuys from './components/TableBuys'
 import { TablesType } from './vite-env'
 import TopBar from './components/TopBar'
 import LoadingPop from './components/LoadingPop'
+import PayPaper from './components/PayPaper'
 
 const defaultTables: TablesType = {
   "00001": {
@@ -20,7 +21,7 @@ const defaultTables: TablesType = {
 let lastChange: string | undefined
 
 export default function App() {
-  const [popUp, setPopUp] = React.useState<boolean>(false)
+  const [paydisplay, setDisplay] = React.useState<undefined | any>(undefined)
   const [loading, setloading] = React.useState<string>("")
   const [Tables, setTables] = React.useState(defaultTables)
   const [selectedTable, setSelected] = React.useState<string | undefined>()
@@ -110,6 +111,7 @@ export default function App() {
   return <main id='main'>
     <section className='content'>
       <section className='sub-content'>
+        {paydisplay !== undefined && <PayPaper content={paydisplay} close={()=>{setDisplay(undefined)}}/>}
         {loading !== "" && <LoadingPop objetive={loading} close={()=>{setloading("")}}/>}
         <TopBar 
           save={save} 
@@ -119,9 +121,9 @@ export default function App() {
           }}
           results={()=>{}}
         />
-        <TableBuys editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
+        <TableBuys pay={pay} editTable={editTable} Table={selectedTable !== undefined ? Tables[selectedTable] : undefined}/>
       </section>
-      <TablesList Tables={Tables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
+      <TablesList archivate={archivate} Tables={Tables} setSelected={setSelected} selectedTable={selectedTable} createTable={createTable} />
     </section>
   </main>
 }

@@ -1,4 +1,4 @@
-import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faArrowLeft, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { TablesType } from "../vite-env"
 import AddTable from "./AddTable"
@@ -9,6 +9,7 @@ type Props = {
     setSelected: Function
     selectedTable: string | undefined
     createTable: Function
+    archivate: Function
 }
 
 const checkTableExist = (Tables: TablesType, number: string)=>{
@@ -23,7 +24,7 @@ const checkTableExist = (Tables: TablesType, number: string)=>{
     return result
 }
 
-export default function TablesList({Tables, setSelected, selectedTable, createTable}: Props) {
+export default function TablesList({Tables, setSelected, selectedTable, createTable, archivate}: Props) {
     const [popUp, setPopUp] = React.useState<boolean>(false)
     
     const selectTable = (tableId:string)=>{
@@ -38,6 +39,7 @@ export default function TablesList({Tables, setSelected, selectedTable, createTa
                 onClick={()=>{selectTable(tabl._id)}}
             >
                 <p>{tabl.number}</p>
+                <button onClick={()=>{archivate(tabl._id, true)}}><FontAwesomeIcon icon={faTrash}/></button>
             </li>
         })
 

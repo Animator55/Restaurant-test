@@ -8,12 +8,13 @@ import EditItemPop from './EditItemPop'
 type Props = {
     Table: Table | undefined
     editTable: Function
+    pay: Function
 }
 type resRoute = {
     [key: number]: any
 }
 
-export default function TableBuys({Table, editTable}: Props) {
+export default function TableBuys({Table, editTable, pay}: Props) {
     const [ProductPage, setProductPage] = React.useState("Entrada")
     const [editPopUp, setEditPopUp] = React.useState<number | undefined>(undefined)
 
@@ -39,9 +40,7 @@ export default function TableBuys({Table, editTable}: Props) {
     const TableTopBar = ()=>{
         return <nav className='table-top'>
             <h4>{Table !== undefined && "Mesa " + Table.number}</h4>
-            <button>Cobrar</button>
-            <button>Cerrar</button>
-            <button>Anular</button>
+            <button onClick={()=>{pay()}}>Cobrar</button>
         </nav>
     }
     
