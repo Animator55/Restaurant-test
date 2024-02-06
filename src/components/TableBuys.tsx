@@ -153,7 +153,7 @@ export default function TableBuys({Table, editTable, pay}: Props) {
 
     const RenderProducts = (page: string)=>{
         return products[page].map(item=>{
-            return <div
+            return <button
                 key={Math.random()}
                 onClick={()=>{addItem(item)}}
                 className='pickeable-item'
@@ -163,7 +163,7 @@ export default function TableBuys({Table, editTable, pay}: Props) {
                 {item.tags !== undefined && item.tags.includes("vegan") && <FontAwesomeIcon icon={faSeedling}/>}
                 {item.tags !== undefined && item.tags.includes("no-tacc") && <FontAwesomeIcon icon={faWheatAlt}/>}
                 <p>${item.price}</p>
-            </div>
+            </button>
         })
     }
 
@@ -191,6 +191,12 @@ export default function TableBuys({Table, editTable, pay}: Props) {
             </div>
         </section>
     }
+
+    React.useEffect(()=>{
+        let sidebar = document.querySelector(".sidebar")
+        sidebar?.classList.remove("expanded")
+    }, [ProductPage])
+
     return <section className='table-display'>
         {editPopUp !== undefined && <EditItemPop item={Table?.buys[editPopUp]} close={()=>{setEditPopUp(undefined)}} confirm={editItem}/>}
         <div>

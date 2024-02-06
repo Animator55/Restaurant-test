@@ -12,11 +12,11 @@ let input1 = ""
 let input2 = ""
 
 export default function EditItemPop({item, close, confirm}: Props) {
-    return item !== undefined && <div className="pop-background" onClick={(e)=>{
+    return item !== undefined && <section className="pop-background" onClick={(e)=>{
             let el = e.target as HTMLElement
             if(el.className! === "pop-background") close()
         }}>
-        <div className='pop'>
+        <section className='pop'>
             <div className='d-flex'>
                 <h3 className='mr-auto'>{item.name}</h3>
                 <button onClick={()=>{close()}}><FontAwesomeIcon icon={faXmark}/></button>
@@ -31,6 +31,6 @@ export default function EditItemPop({item, close, confirm}: Props) {
                 input1 = ""
                 input2 = ""
             }}>Confirmar</button>
-        </div>
-    </div>
+        </section>
+    </section>
 }

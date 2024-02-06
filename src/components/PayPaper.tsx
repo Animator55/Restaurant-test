@@ -61,11 +61,11 @@ export default function PayPaper({ content, close }: Props) {
         e.currentTarget.classList.add("copied")
     }
 
-    return <div className='pop-background' onClick={(e)=>{
+    return <section className='pop-background' onClick={(e)=>{
         let el = e.target as HTMLElement
         if(el.className! === "pop-background") close()
     }}>
-        <div className='pop'>
+        <section className='pop'>
             <div className='d-flex'>
                 <button onClick={()=>{close()}}>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -76,6 +76,6 @@ export default function PayPaper({ content, close }: Props) {
             </div>
             <hr></hr>
             <RenderContent/>
-        </div>
-    </div>
+        </section>
+    </section>
 }

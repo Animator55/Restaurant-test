@@ -221,9 +221,9 @@ input {
 
 .table-display {
   display: flex;
-  height: 100%;
-  width: 100%;
   background-color: var(--cwhite);
+  max-height: calc(100dvh - 3rem);
+  height: 100%;
 }
 
 .table-display > div {
@@ -231,6 +231,7 @@ input {
   max-width: 50%;
   display: flex;
   flex-direction: column;
+  margin-right: auto;
 }
 .table-display > div > div {
   display: flex;
@@ -377,6 +378,33 @@ input {
   padding: 0.5rem;
 }
 
+.content:has(.sidebar.expanded) .table-display > div {
+  max-width: none;
+  margin-right: 0;
+}
+.content:has(.sidebar.expanded) .picker-section {
+  width: 3rem;
+}
+.content:has(.sidebar.expanded) .picker-section .product-paging {
+  display: none;
+}
+.content:has(.sidebar.expanded) .picker-section .picker-nav {
+  flex-direction: column;
+  gap: .5rem;
+}
+.content:has(.sidebar.expanded) .picker-section .picker-nav>button> :last-child {
+  display: none;
+}
+.content:has(.sidebar.expanded) .picker-section .picker-nav>button {
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0.5rem 0;
+}
+.content:has(.sidebar.expanded) .picker-section .picker-nav>button> :first-child {
+  font-size: 1.7rem;
+}
+
 .picker-nav {
   display: flex;
   gap: 0.1rem;
@@ -421,7 +449,7 @@ input {
   overflow: hidden;
   position: relative;
   max-height: inherit;
-  min-height: calc(100% - 18%);
+  height: 100%;
   border: 0.7rem solid var(--cblack);
 }
 
@@ -495,6 +523,7 @@ input {
   gap: 1rem;
   background-color: var(--cgray);
   padding: 1rem 0.7rem;
+  min-width: 7%;
 }
 
 .expand-sidebar {
@@ -504,6 +533,14 @@ input {
   color: var(--cwhite);
   font-size: 1.2rem;
   background-color: transparent;
+}
+.sidebar.expanded {
+  align-items:normal;
+  min-width: 30%;
+}
+.sidebar.expanded .expand-sidebar {
+  rotate: 180deg;
+  justify-self: start;
 }
 
 .tables-list {
@@ -522,7 +559,7 @@ input {
   border-radius: 50%;
   background-color: var(--cdarkgray);
   color: var(--cwhite);
-  padding: 0.4rem;
+  padding: .4rem;
   width: 2rem;
   height: 2rem;
   font-size: large;
@@ -530,6 +567,31 @@ input {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.sidebar.expanded .table-button, .sidebar.expanded .add-table-btn {
+  width: auto;
+  border-radius: 3px;
+}
+.sidebar.expanded .table-button :nth-child(2) {
+  margin-left: auto;
+}
+.sidebar:not(.expanded) .table-button button {
+  display: none;
+}
+.table-button button {
+  background-color: transparent;
+  color: var(--cwhite);
+  font-size: 1.2rem;
+}
+.table-button.active button {
+  color: var(--cblack);
+}
+.sidebar.expanded .table-button::before {
+  content: "Mesa ";
+  margin-right: 0.5rem;
+}
+.sidebar.expanded .table-button {
+  padding-left: 0.75rem;
 }
 .add-table-btn {
   background-color: var(--cwhite);
